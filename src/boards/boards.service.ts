@@ -1,6 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { BoardStatus } from './boards-status.enum';
-import { v1 as uuid } from 'uuid';
 import { CreateBoardDto } from './dto/create-board.dto';
 import { BoardRepository } from './board.repository';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -13,9 +12,9 @@ export class BoardsService {
     private boardRepository: BoardRepository,
   ) {}
 
-  // getAllBoards(): Board[] {
-  //   return this.boards;
-  // }
+  async getAllBoards(): Promise<Board[]> {
+    return this.boardRepository.find();
+  }
 
   createBoard(createBoardDto: CreateBoardDto): Promise<Board> {
     return this.boardRepository.createBoard(createBoardDto);
